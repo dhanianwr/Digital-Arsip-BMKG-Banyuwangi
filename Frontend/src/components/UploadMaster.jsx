@@ -9,33 +9,23 @@ function UploadMaster() {
   const [tipe, setTipe] = useState("");
   const [berkas, setBerkas] = useState("");
   const [search, setSearch] = useState([]);
-  const [msg, setMsg] = useState("")
+  const [msg, setMsg] = useState("");
 
-  useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
+
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/dokumen?nama=${query}`);
-  
+      const response = await axios.get(
+        `http://localhost:5000/dokumen?nama=${query}`
+      );
+
       if (response.data.length > 0) {
         setSearch(response.data);
       }
     } catch (error) {
       if (error.response) {
-        setMsg(error.response.data.msg)
+        setMsg(error.response.data.msg);
       }
-    }
-  };
-
-  const handleClickOutside = (event) => {
-    if (!event.target.closest('.search-bar')) {
-      setSearch([]);
-      setMsg('');
     }
   };
 
@@ -87,6 +77,31 @@ function UploadMaster() {
     setOpenTipe(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".search-bar")) {
+        setSearch([]);
+        setMsg("");
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleClickDropdown = (event) => {
+      if (!event.target.closest('.buka-tutup')) {
+        setOpenTipe(false)
+      }
+    };
+    document.addEventListener("click", handleClickDropdown);
+    return () => {
+      document.removeEventListener("click", handleClickDropdown);
+    };
+  }, [])
+
   return (
     <>
       <div className="grid md:grid-cols-2 w-full gap-4">
@@ -128,17 +143,17 @@ function UploadMaster() {
                 >
                   Kategori
                 </label>
-                <div className="relative h-10 w-full min-w-[200px] cursor-pointer">
+                <div className="relative h-10 w-full min-w-[200px] cursor-pointer ">
                   <div
                     onClick={() => setOpenTipe(!openTipe)}
-                    className={`peer w-full rounded-[7px] border border-gray-400 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 ${
+                    className={`buka-tutup peer w-full rounded-[7px] border  border-gray-400 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 ${
                       openTipe ? "border-blue-500" : "border-blue-gray-200 "
                     } h-11 text-center`}
                   >
                     <span
                       value={tipe}
                       onChange={(e) => setTipe(e.target.value)}
-                      className="absolute top-2/4 left-3 -translate-y-2/4 pt-0.5"
+                      className=" absolute top-2/4 left-3 -translate-y-2/4 pt-0.5"
                     >
                       {tipe || "Pilih Jenis File"}
                     </span>
@@ -180,51 +195,55 @@ function UploadMaster() {
 
         {/* SEARCH */}
         <div className="flex items-center justify-center border border-gray-400 rounded-lg p-4 gap-4 bg-white">
-      <div className="relative">
-        <label className="block mb-2 text-sm font-medium text-gray-90">
-          Search Bar
-        </label>
-        <div className="flex">
-          <input
-            type="text"
-            placeholder="Cari File..."
-            className="w-full px-4 py-2 border border-gray-400 rounded-s-lg"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button
-            className=" px-5 text-white bg-blue-500 rounded-e-lg"
-            onClick={handleSearch}
-          >
-            Search
-          </button>
-        </div>
-        {search.length > 0 ? (
-          <div className="flex flex-col p-2 w-full mt-3 rounded-lg bg-white border border-gray-400 absolute">
-            <p className="flex justify-center mb-2 font-semibold bg-gray-300">Hasil Pencarian</p>
-            {search.map((index, i) => (
-              <ul
-                key={i}
-                className="flex gap-3 justify-between items-center"
+          <div className="relative">
+            <label className="block mb-2 text-sm font-medium text-gray-90">
+              Search Bar
+            </label>
+            <div className="flex">
+              <input
+                type="text"
+                placeholder="Cari File..."
+                className="w-full px-4 py-2 border border-gray-400 rounded-s-lg"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <button
+                className=" px-5 text-white bg-blue-500 rounded-e-lg"
+                onClick={handleSearch}
               >
-                <li>
-                  <a
-                    href={index.url}
-                    className="no-underline text-black font-light"
-                    target="_blank"
+                Search
+              </button>
+            </div>
+            {search.length > 0 ? (
+              <div className="flex flex-col p-2 w-full mt-3 rounded-lg bg-white border border-gray-400 absolute">
+                <p className="flex justify-center mb-2 font-semibold bg-gray-300">
+                  Hasil Pencarian
+                </p>
+                {search.map((index, i) => (
+                  <ul
+                    key={i}
+                    className="flex gap-3 justify-between items-center"
                   >
-                    {index.nama}
-                  </a>
-                </li>
-                <li className="no-underline text-black font-light">{index.tipe}</li>
-              </ul>
-            ))}
+                    <li>
+                      <a
+                        href={index.url}
+                        className="no-underline text-black font-light"
+                        target="_blank"
+                      >
+                        {index.nama}
+                      </a>
+                    </li>
+                    <li className="no-underline text-black font-light">
+                      {index.tipe}
+                    </li>
+                  </ul>
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-gray-500 mt-3">{msg}</p>
+            )}
           </div>
-        ) : (
-          <p className="text-center text-gray-500 mt-3">{msg}</p>
-        )}
-      </div>
-    </div>
+        </div>
       </div>
     </>
   );
