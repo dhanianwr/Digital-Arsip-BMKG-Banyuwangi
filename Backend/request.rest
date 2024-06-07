@@ -1,0 +1,36 @@
+GET http://localhost:5000/dokumen
+
+### AUTH
+
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name": "ADMIN",
+    "nip" : "197502181997031003",
+    "password" : "tes123",
+    "confPassword" : "tes123"
+}
+
+### 
+
+GET http://localhost:5000/users
+Authorization: Bearer
+
+###
+
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "nip" : "197502181997031003",
+    "password" : "tes123"
+}
+
+
+###
+GET http://localhost:5000/token
+
+###
+DELETE http://localhost:5000/logout
+
