@@ -5,7 +5,24 @@ import classNames from "classnames";
 import { FooterComp } from "../components/Footer";
 
 const linkClasses =
-  "flex items-center gap-2 px-3 py-2 font-normal hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base";
+  "flex items-center gap-2 px-3 py-2 font-normal hover:no-underline rounded-lg text-base";
+
+const SidebarLink = ({ item, activeClassName }) => {
+  const { pathname } = useLocation();
+
+  return (
+    <Link
+      to={item.path}
+      className={classNames(
+        pathname === item.path? activeClassName : "",
+        linkClasses
+      )}
+    >
+      <span className="text-xl">{item.icon}</span>
+      {item.label}
+    </Link>
+  );
+};
 
 export default function SidebarComp() {
   return (
@@ -18,32 +35,15 @@ export default function SidebarComp() {
       </Link>
       <div className="flex-1 py-8 flex flex-col gap-0.5">
         {DASHBOARD_SIDEBAR_LINKS.map((item) => (
-          <SidebarLink key={item.key} item={item} />
+          <SidebarLink key={item.key} item={item} activeClassName="bg-blue-500 text-white transition-colors duration-700" />
         ))}
       </div>
       <div className="flex flex-col gap-0.5 pt-2 border-t border-neutral-700">
         {DASHBOARD_SIDEBAR_BOTTOM_LINKS.map((item) => (
-            <SidebarLink key={item.key} item={item} />
+          <SidebarLink key={item.key} item={item} activeClassName="bg-blue-500 text-white" />
         ))}
         <FooterComp/>
       </div>
     </div>
-  );
-}
-
-function SidebarLink({ item }) {
-  const { pathname } = useLocation();
-
-  return (
-    <Link
-      to={item.path}
-      className={classNames(
-        pathname === item.path ? 'text-sky-600' : "",
-        linkClasses
-      )}
-    >
-      <span className="text-xl">{item.icon}</span>
-      {item.label}
-    </Link>
   );
 }

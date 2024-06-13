@@ -50,14 +50,14 @@ export const Layout = () => {
   })
  
   //get All USER
-  const getUsers = async() => {
-   const response = await axiosJWT.get('http://localhost:5000/users', {
-     headers: {
-       Authorization: `Bearer ${token}`
-     }
-   });
-   console.log(response.data)
-  }
+  // const getUsers = async() => {
+  //  const response = await axiosJWT.get('http://localhost:5000/users', {
+  //    headers: {
+  //      Authorization: `Bearer ${token}`
+  //    }
+  //  });
+  //  console.log(response.data)
+  // }
  
   const Logout = async() => {
    try {
@@ -77,7 +77,7 @@ export const Layout = () => {
           <div className="navbar bg-white border border-gray-400 rounded-lg">
       <div className="flex justify-center items-center flex-1">
         <h3 className="hover:no-underline text-stone-900 text-wrap text-center font-semibold text-xl cursor-default">
-          Website Digital Arsip BMKG Banyuwangi
+          Digital Arsip BMKG Banyuwangi
         </h3>
       </div>
       <div className="flex-none gap-2">

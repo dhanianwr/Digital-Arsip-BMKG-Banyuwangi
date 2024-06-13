@@ -222,7 +222,7 @@ function UploadMaster() {
                 {search.map((index, i) => (
                   <ul
                     key={i}
-                    className="flex gap-3 justify-between items-center"
+                    className="flex justify-between items-center rounded p-2"
                   >
                     <li>
                       <a

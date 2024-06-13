@@ -8,7 +8,7 @@ export default function HeaderDash() {
       <div className="flex justify-center items-center flex-1">
         <h3 className="hover:no-underline text-stone-900 text-wrap text-center font-semibold text-xl cursor-default">
           Website Digital Arsip BMKG Banyuwangi
-        </h3>
+        </h3> 
       </div>
       <div className="flex-none gap-2">
         <div className="dropdown dropdown-end">
