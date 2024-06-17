@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -28,6 +28,7 @@ export const RegisterPage = () => {
     }
   };
 
+
   return (
     <div className="hero min-h-screen bg-gradient-to-r from-biru-bmkg to-hijau-bmkg">
       <div className="hero-content flex-col lg:flex-row">
@@ -37,6 +38,7 @@ export const RegisterPage = () => {
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form onSubmit={Register} className="card-body">
             <div className="form-control">
+            <p className="text-center p-2 hidden click-outside">{msg}</p>
               <label className="label">
                 <span className="label-text">Nama</span>
               </label>

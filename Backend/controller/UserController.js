@@ -38,6 +38,31 @@ export const Register = async(req, res) => {
     }
    }
 
+   export const ForgetPassword = async (req, res) => {
+    const { nip, oldPassword, newPassword, confNewPassword } = req.body;
+  
+    if (newPassword !== confNewPassword)
+      return res.status(400).json({ msg: "New Password dan Confirm New Password tidak cocok" });
+  
+    const user = await Users.findOne({ nip });
+    if (!user)
+      return res.status(404).json({ msg: "User tidak ditemukan" });
+  
+    const isValid = await bcrypt.compare(oldPassword, user.password);
+    if (!isValid)
+      return res.status(400).json({ msg: "Password lama salah" });
+  
+    const salt = await bcrypt.genSalt();
+    const hashNewPassword = await bcrypt.hash(newPassword, salt);
+  
+    try {
+      await Users.update({ nip }, { password: hashNewPassword });
+      res.json({ msg: "Password berhasil diubah" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
    export const Login = async(req, res) => {
     try {
         const user = await Users.findAll({

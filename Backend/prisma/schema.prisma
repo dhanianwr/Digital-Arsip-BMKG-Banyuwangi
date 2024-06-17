@@ -14,11 +14,17 @@ datasource db {
 }
 
 model dokumen {
-  id        Int      @id @default(autoincrement())
-  nama      String
-  tipe      String
-  berkas    String
-  url       String
-  createdAt DateTime @default(now())
+  id            Int      @id @default(autoincrement())
+  nama          String 
+  tipe          String
+  keterangan    String  @db.VarChar(255)
+  berkas        String
+  status        Status  @default(active)
+  url           String
+  createdAt     DateTime @default(now())
 }
 
+enum Status {
+  active  
+  inactive 
+}

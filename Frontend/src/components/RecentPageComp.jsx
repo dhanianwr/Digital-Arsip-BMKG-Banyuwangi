@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
+import { updateStatus } from "../../../Backend/controller/StatusController";
 
 export const RecentPageComp = () => {
   const [dokumen, setDokumen] = useState([]);
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     getDokumen();
@@ -29,20 +31,35 @@ export const RecentPageComp = () => {
     }
   };
 
+  const updateStatus = async (Id) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/dokumen/${Id}/status`
+      );
+      setStatus(response.data.status);
+      location.reload();
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-full gap-4 justify-center items-center border border-gray-400 rounded-lg bg-white">
       <div className="flex-auto p-4 justify-between">
         <div className="flex justify-center items-center">
           <h3 className="pb-3 font-bold">Semua Dokumen Tersimpan</h3>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           <table className="table-fixed">
             <thead className="bg-gray-300">
               <tr>
                 <th className="text-center">Nama File</th>
-                <th className="text-center">Jenis File</th>
+                <th className="text-center">Keterangan</th>
+                <th className="text-center">Format File</th>
                 <th className="text-center">Tanggal Upload</th>
                 <th className="text-center">Jam Upload</th>
+                <th className="text-center">Status Dokumen</th>
                 <th className="text-center">Aksi</th>
               </tr>
             </thead>
@@ -65,7 +82,7 @@ export const RecentPageComp = () => {
                 );
                 return (
                   <tr key={i}>
-                    <th className="w-6/12 text-center">
+                    <th className="text-center">
                       <a
                         className="text-black"
                         href={index.url}
@@ -74,9 +91,22 @@ export const RecentPageComp = () => {
                         {index.nama}
                       </a>
                     </th>
+                    <th className="text-center">{index.keterangan}</th>
                     <th className="text-center">{index.tipe}</th>
                     <th className="text-center">{Tanggal}</th>
                     <th className="text-center">{Jam}</th>
+                    <th className="text-center">
+                      <button
+                        onClick={() => updateStatus(index.id)}
+                        className={`${
+                          index.status === "active"
+                            ? "bg-green-500"
+                            : "bg-red-500"
+                        } text-white p-1 px-2 rounded-full`}
+                      >
+                        {index.status}
+                      </button>
+                    </th>
                     <th className="text-center">
                       <div className="flex justify-center gap-4">
                         <div className="tooltip" data-tip="Hapus">

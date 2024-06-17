@@ -16,7 +16,8 @@ const storage = multer.diskStorage({
     );
   },
 });
-export const dokumenUpload = multer({ storage: storage });
+export const dokumenUpload = multer({ storage: storage, limits: { fileSize: 50000000 } });
+
 
 export const GetDokumen = async (req, res) => {
   try {
@@ -58,44 +59,6 @@ export const GetDokumenbyId = async (req, res) => {
   }
 };
 
-// export const CreateDokumesn = async (req, res) => {
-//   try {
-//     if (req.file === null) {
-//       return res.status(400).json({ msg: "Dokument File not provided" });
-//     }
-
-//     const nama = req.body.nama;
-//     const tipe = req.body.tipe;
-//     const fileName = req.body.filename;
-//     const fileSize = req.body.size;
-//     const url = `${req.protocol}://${req.get(
-//       "host"
-//     )}/public/dokumen/${fileName}#toolbar=0`;
-//     const allowedType = [".pdf"];
-//     const ext = path.extname(req.file.originalname);
-
-//     if (!allowedType.includes(ext.toLowerCase())) {
-//       return res.status(422).json({
-//         msg: "Format Tidak sesuai, Silahkan Unggah Dengan Format .pdf, .xls, .xlsx, .doc, .docx, .ppt",
-//       });
-//     }
-//     if (fileSize > 50000000) {
-//       return res.status(422).json({ msg: "Ukuran File Harus Kurang Dari 5MB" });
-//     }
-//     await prisma.dokumen.create({
-//       data: {
-//         nama: nama,
-//         tipe: tipe,
-//         berkas: fileName,
-//         url: url,
-//       },
-//     });
-//     res.status(201).json({ msg: "Dokumen Berhasil Diunggah" });
-//   } catch (error) {
-//     console.log(error.message);
-//     res.status(500).json({ msg: "Server Error" });
-//   }
-// };
 
 export const CreateDokumen = async (req, res) => {
   try {
@@ -104,6 +67,8 @@ export const CreateDokumen = async (req, res) => {
     }
     const nama = req.body.nama;
     const tipe = req.body.tipe;
+    const keterangan = req.body.keterangan
+    const status = req.body.status
     const fileName = req.file.filename;
     const fileSize = req.file.size;
     const url = `${req.protocol}://${req.get(
@@ -125,6 +90,8 @@ export const CreateDokumen = async (req, res) => {
       data: {
         nama: nama,
         tipe: tipe,
+        keterangan: keterangan,
+        status: status,
         berkas: fileName,
         url: url,
       },
@@ -170,13 +137,15 @@ export const UpdateDokumen = async (req, res) => {
   }
   const nama = req.body.nama;
   const tipe = req.body.tipe;
+  const keterangan = req.body.keterangan
+  const status = req.body.status
   const url = `${req.protocol}://${req.get(
     "host"
   )}/public/dokumen/${fileName}`;
 
   try {
     await prisma.dokumen.update({
-      data: { nama: nama, tipe: tipe, berkas: fileName, url: url },
+      data: { nama: nama, tipe: tipe, keterangan: keterangan, status: status, berkas: fileName, url: url },
       where: {
         id: Number(req.params.id),
       },
@@ -208,5 +177,49 @@ export const DeleteDokumen = async (req, res) => {
     res.status(200).json({ msg: "Dokumen Berhasil Dihapus" });
   } catch (error) {
     console.log(error.message);
+  }
+};
+
+//READ ONLY
+
+const getMimeType = (ext) => {
+  switch (ext) {
+    case '.pdf':
+      return 'application/pdf';
+    case '.doc':
+      return 'application/msword';
+    case '.docx':
+      return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+    case '.xls':
+      return 'application/vnd.ms-excel';
+    case '.xlsx':
+      return 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+    case '.ppt':
+      return 'application/vnd.ms-powerpoint';
+    default:
+      return 'application/octet-stream';
+  }
+};
+
+export const viewDokumen = async (req, res) => {
+  try {
+    const dokumenId = req.params.id;
+    const dokumen = await prisma.dokumen.findUnique({ where: { id: dokumenId } });
+
+    if (!dokumen) {
+      return res.status(404).json({ msg: "Dokumen not found" });
+    }
+
+    const filePath = `./public/dokumen/${dokumen.berkas}`;
+    const mimeType = getMimeType(path.extname(dokumen.berkas));
+
+    res.setHeader('Content-Type', mimeType);
+    res.setHeader('Content-Disposition', `inline; filename="${dokumen.berkas}"`);
+
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ msg: "Server Error" });
   }
 };

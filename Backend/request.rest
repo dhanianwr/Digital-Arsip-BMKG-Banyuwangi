@@ -23,8 +23,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "nip" : "197502181997031003",
-    "password" : "tes123"
+    "nip" : "123123123123123111",
+    "password" : "admin123"
 }
 
 
@@ -34,3 +34,16 @@ GET http://localhost:5000/token
 ###
 DELETE http://localhost:5000/logout
 
+###
+
+//status
+
+PATCH http://localhost:5000/dokumen/1/status
+Content-Type: application/json
+
+{
+    "status" : "inactive"
+}
+
+###
+GET http://localhost:5000/dokumen/status

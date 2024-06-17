@@ -7,6 +7,7 @@ function UploadMaster() {
   const [query, setQuery] = useState("");
   const [nama, setNama] = useState("");
   const [tipe, setTipe] = useState("");
+  const [keterangan, setKeterangan] = useState("")
   const [berkas, setBerkas] = useState("");
   const [search, setSearch] = useState([]);
   const [msg, setMsg] = useState("");
@@ -34,6 +35,7 @@ function UploadMaster() {
     const formData = new FormData();
     formData.append("nama", nama);
     formData.append("tipe", tipe);
+    formData.append("keterangan", keterangan);
     formData.append("berkas", berkas);
     try {
       await axios.post("http://localhost:5000/dokumen", formData, {
@@ -123,6 +125,19 @@ function UploadMaster() {
                 </div>
               </div>
               <div className="#">
+                <label className="block mb-2 text-sm font-medium text-gray-90">
+                  Keterangan
+                </label>
+                <div className="flex">
+                  <input
+                    type="text"
+                    placeholder="Keterangan"
+                    className="w-full px-4 py-2 border border-gray-400 rounded"
+                    onChange={(e) => setKeterangan(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="#">
                 <label
                   className="block mb-2 text-sm font-medium text-gray-90"
                   htmlFor="file_input"
@@ -141,7 +156,7 @@ function UploadMaster() {
                   htmlFor="countries"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Kategori
+                  Format File
                 </label>
                 <div className="relative h-10 w-full min-w-[200px] cursor-pointer ">
                   <div

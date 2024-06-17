@@ -27,9 +27,7 @@ export default function DashboardStat() {
         `http://localhost:5000/dokumen?tipe=file_pdf`
       );
       setPDF(response.data);
-    } catch (error) {
-      console.log("gagal");
-    }
+    } catch (error) {}
   };
 
   const GetDokumenWord = async () => {
@@ -38,9 +36,7 @@ export default function DashboardStat() {
         `http://localhost:5000/dokumen?tipe=file_word`
       );
       setWord(response.data);
-    } catch (error) {
-      console.log("gagal");
-    }
+    } catch (error) {}
   };
 
   const GetDokumenExcel = async () => {
@@ -49,9 +45,7 @@ export default function DashboardStat() {
         `http://localhost:5000/dokumen?tipe=file_excel`
       );
       setExcel(response.data);
-    } catch (error) {
-      console.log("gagal");
-    }
+    } catch (error) {}
   };
 
   const GetDokumenPPT = async () => {
@@ -60,9 +54,7 @@ export default function DashboardStat() {
         `http://localhost:5000/dokumen?tipe=file_ppt`
       );
       setPPT(response.data);
-    } catch (error) {
-      console.log("gagal");
-    }
+    } catch (error) {}
   };
 
   const GetDokumenScan = async () => {
@@ -71,10 +63,8 @@ export default function DashboardStat() {
         "http://localhost:5000/dokumen?tipe=scan_dokumen"
       );
       setScan(response.data);
-      console.log(response)
-    } catch (error) {
-      console.log("gagal");
-    }
+      console.log(response);
+    } catch (error) {}
   };
 
   return (
