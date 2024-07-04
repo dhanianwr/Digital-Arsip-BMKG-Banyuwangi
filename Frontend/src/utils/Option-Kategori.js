@@ -6,9 +6,11 @@ export const KategoriData = [
   { value: "Scan Dokumen", label: "File Scan" },
 ];
 
-export const KategoriFile = [
-    { value: "PDF", label: "File PDF" },
-    { value: "Excel", label: "File Excel" },
-    { value: "Word", label: "File Word" },
-    { value: "PPT", label: "File PPT" },
+export const KategoriDokumen = [
+  { value: "A", label: "Dokumen 1" },
+  { value: "B", label: "Dokumen 2" },
+  { value: "C", label: "Dokumen 3" },
+  { value: "D", label: "Dokumen 4" },
+  { value: "E", label: "Dokumen 5" },
+  { value: "F", label: "Dokumen 6" },
 ]

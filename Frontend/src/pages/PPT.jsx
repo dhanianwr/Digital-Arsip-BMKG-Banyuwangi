@@ -17,7 +17,6 @@ export default function PowerPage() {
         "http://localhost:5000/dokumen?tipe=file_ppt"
       );
       setDokumen(response.data);
-      console.log(response);
     } catch (error) {
       console.log("gagal mengambil data", error);
     }

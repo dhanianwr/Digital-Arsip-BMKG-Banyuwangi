@@ -17,7 +17,6 @@ export default function ScanDokumen() {
         "http://localhost:5000/dokumen?tipe=scan_dokumen"
       );
       setDokumen(response.data);
-      console.log(response);
     } catch (error) {
       console.log("gagal mengambil data", error);
     }

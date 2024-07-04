@@ -63,7 +63,6 @@ export default function DashboardStat() {
         "http://localhost:5000/dokumen?tipe=scan_dokumen"
       );
       setScan(response.data);
-      console.log(response);
     } catch (error) {}
   };
 

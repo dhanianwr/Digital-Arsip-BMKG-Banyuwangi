@@ -15,7 +15,6 @@ export default function PDFPage() {
     try {
       const response = await axios.get("http://localhost:5000/dokumen?tipe=file_pdf");
       setDokumen(response.data);
-      console.log(response)
     } catch (error) {
       console.log("gagal mengambil data", error);
     }

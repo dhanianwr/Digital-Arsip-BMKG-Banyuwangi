@@ -44,6 +44,14 @@ export const RecentPageComp = () => {
     }
   };
 
+  function truncate(str, maxLength = 40) {
+    if (str.length > maxLength) {
+        return str.slice(0, maxLength) + '...';
+    } else {
+        return str;
+    }
+}
+
   return (
     <div className="w-full gap-4 justify-center items-center border border-gray-400 rounded-lg bg-white">
       <div className="flex-auto p-4 justify-between">
@@ -82,16 +90,16 @@ export const RecentPageComp = () => {
                 );
                 return (
                   <tr key={i}>
-                    <th className="text-center">
+                    <th className="w-1/4">
                       <a
                         className="text-black"
                         href={index.url}
                         target="_blank"
                       >
-                        {index.nama}
+                        {truncate(index.nama)}
                       </a>
                     </th>
-                    <th className="text-center">{index.keterangan}</th>
+                    <th className="w-1/4">{truncate(index.keterangan)}</th>
                     <th className="text-center">{index.tipe}</th>
                     <th className="text-center">{Tanggal}</th>
                     <th className="text-center">{Jam}</th>
@@ -102,7 +110,7 @@ export const RecentPageComp = () => {
                           index.status === "active"
                             ? "bg-green-500"
                             : "bg-red-500"
-                        } text-white p-1 px-2 rounded-full`}
+                        } text-white p-1 px-3 hover:px-5 transition-all duration-500 rounded-full`}
                       >
                         {index.status}
                       </button>

@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 export const EditDoc = () => {
   const [nama, setNama] = useState([]);
+  const [keterangan, setKeterangan] = useState([])
   const [tipe, setTipe] = useState([]);
   const [berkas, setBerkas] = useState([]);
   const { id } = useParams();
@@ -16,6 +17,7 @@ export const EditDoc = () => {
     const getDokumenById = async () => {
       const response = await axios.get(`http://localhost:5000/dokumen/${id}`);
       setNama(response.data.nama);
+      setKeterangan(response.keterangan)
       setTipe(response.data.tipe);
       setBerkas(response.data.berkas);
     };
@@ -26,6 +28,7 @@ export const EditDoc = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("nama", nama);
+    formData.append("keterangan", keterangan)
     formData.append("tipe", tipe);
     formData.append("berkas", berkas);
     try {
@@ -87,6 +90,19 @@ export const EditDoc = () => {
                 />
               </div>
             </div>
+            <div className="#">
+                <label className="block mb-2 text-sm font-medium text-gray-90">
+                  Keterangan
+                </label>
+                <div className="flex">
+                  <input
+                    type="text"
+                    placeholder="Keterangan"
+                    className="w-full px-4 py-2 border border-gray-400 rounded"
+                    onChange={(e) => setKeterangan(e.target.value)}
+                  />
+                </div>
+              </div>
             <div className="#">
               <label
                 className="block mb-2 text-sm font-medium text-gray-90"
