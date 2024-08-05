@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
-import { updateStatus } from "../../../Backend/controller/StatusController";
+// import { updateStatus } from "../../../Backend/controller/StatusController";
 
 export const RecentPageComp = () => {
   const [dokumen, setDokumen] = useState([]);
-  const [status, setStatus] = useState("");
+  // const [status, setStatus] = useState("");
 
   useEffect(() => {
     getDokumen();
@@ -23,7 +23,7 @@ export const RecentPageComp = () => {
 
   const HapusDokumen = async (Id) => {
     try {
-      await axios.delete(`https://be-digi-bwi.vercel.app/dokumen/${Id}`);
+      await axios.delete(`http://be-digi-bwi.vercel.app/dokumen/${Id}`);
       alert("Dokumen Berhasil Dihapus");
       location.reload();
     } catch (error) {
@@ -34,7 +34,7 @@ export const RecentPageComp = () => {
   const updateStatus = async (Id) => {
     try {
       const response = await axios.patch(
-        `https://be-digi-bwi.vercel.app/dokumen/${Id}/status`
+        `http://be-digi-bwi.vercel.app/dokumen/${Id}/status`
       );
       setStatus(response.data.status);
       location.reload();
