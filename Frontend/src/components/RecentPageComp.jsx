@@ -14,7 +14,7 @@ export const RecentPageComp = () => {
 
   const getDokumen = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/dokumen");
+      const response = await axios.get("https://be-digi-bwi.vercel.app/dokumen");
       setDokumen(response.data);
     } catch (error) {
       console.log("gagal mengambil data", error);
@@ -23,7 +23,7 @@ export const RecentPageComp = () => {
 
   const HapusDokumen = async (Id) => {
     try {
-      await axios.delete(`http://localhost:5000/dokumen/${Id}`);
+      await axios.delete(`https://be-digi-bwi.vercel.app/dokumen/${Id}`);
       alert("Dokumen Berhasil Dihapus");
       location.reload();
     } catch (error) {
@@ -34,7 +34,7 @@ export const RecentPageComp = () => {
   const updateStatus = async (Id) => {
     try {
       const response = await axios.patch(
-        `http://localhost:5000/dokumen/${Id}/status`
+        `https://be-digi-bwi.vercel.app/dokumen/${Id}/status`
       );
       setStatus(response.data.status);
       location.reload();

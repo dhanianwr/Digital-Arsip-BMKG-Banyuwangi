@@ -14,7 +14,7 @@ export default function ScanDokumen() {
   const getDokumen = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/dokumen?tipe=scan_dokumen"
+        "https://be-digi-bwi.vercel.app/dokumen?tipe=scan_dokumen"
       );
       setDokumen(response.data);
     } catch (error) {
@@ -24,7 +24,7 @@ export default function ScanDokumen() {
 
   const HapusDokumen = async (Id) => {
     try {
-      await axios.delete(`http://localhost:5000/dokumen/${Id}`);
+      await axios.delete(`https://be-digi-bwi.vercel.app/dokumen/${Id}`);
       alert("Dokumen Berhasil Dihapus");
       location.reload();
     } catch (error) {

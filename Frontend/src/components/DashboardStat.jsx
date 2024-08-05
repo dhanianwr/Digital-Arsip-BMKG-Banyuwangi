@@ -24,7 +24,7 @@ export default function DashboardStat() {
   const GetDokumenPDF = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/dokumen?tipe=file_pdf`
+        `https://be-digi-bwi.vercel.app/dokumen?tipe=file_pdf`
       );
       setPDF(response.data);
     } catch (error) {}
@@ -33,7 +33,7 @@ export default function DashboardStat() {
   const GetDokumenWord = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/dokumen?tipe=file_word`
+        `https://be-digi-bwi.vercel.app/dokumen?tipe=file_word`
       );
       setWord(response.data);
     } catch (error) {}
@@ -42,7 +42,7 @@ export default function DashboardStat() {
   const GetDokumenExcel = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/dokumen?tipe=file_excel`
+        `https://be-digi-bwi.vercel.app/dokumen?tipe=file_excel`
       );
       setExcel(response.data);
     } catch (error) {}
@@ -51,7 +51,7 @@ export default function DashboardStat() {
   const GetDokumenPPT = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/dokumen?tipe=file_ppt`
+        `https://be-digi-bwi.vercel.app/dokumen?tipe=file_ppt`
       );
       setPPT(response.data);
     } catch (error) {}
@@ -60,7 +60,7 @@ export default function DashboardStat() {
   const GetDokumenScan = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/dokumen?tipe=scan_dokumen"
+        "https://be-digi-bwi.vercel.app/dokumen?tipe=scan_dokumen"
       );
       setScan(response.data);
     } catch (error) {}

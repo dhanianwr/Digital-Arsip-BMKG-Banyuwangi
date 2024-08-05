@@ -16,7 +16,7 @@ function UploadMaster() {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/dokumen?nama=${query}`
+        `https://be-digi-bwi.vercel.app/dokumen?nama=${query}`
       );
 
       if (response.data.length > 0) {
@@ -37,7 +37,7 @@ function UploadMaster() {
     formData.append("keterangan", keterangan);
     formData.append("berkas", berkas);
     try {
-      await axios.post("http://localhost:5000/dokumen", formData, {
+      await axios.post("https://be-digi-bwi.vercel.app/dokumen", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

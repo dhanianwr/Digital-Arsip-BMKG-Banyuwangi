@@ -14,7 +14,7 @@ export default function ExcelPage() {
   const getDokumen = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/dokumen?tipe=file_excel"
+        "https://be-digi-bwi.vercel.app/dokumen?tipe=file_excel"
       );
       setDokumen(response.data);
     } catch (error) {
@@ -24,7 +24,7 @@ export default function ExcelPage() {
 
   const HapusDokumen = async (Id) => {
     try {
-      await axios.delete(`http://localhost:5000/dokumen/${Id}`);
+      await axios.delete(`https://be-digi-bwi.vercel.app/dokumen/${Id}`);
       alert("Dokumen Berhasil Dihapus");
       location.reload();
     } catch (error) {

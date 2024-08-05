@@ -13,7 +13,7 @@ export default function WordPage() {
   
     const getDokumen = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/dokumen?tipe=file_word");
+        const response = await axios.get("https://be-digi-bwi.vercel.app/dokumen?tipe=file_word");
         setDokumen(response.data);
       } catch (error) {
         console.log("gagal mengambil data", error);
@@ -22,7 +22,7 @@ export default function WordPage() {
   
     const HapusDokumen = async (Id) => {
       try {
-        await axios.delete(`http://localhost:5000/dokumen/${Id}`)
+        await axios.delete(`https://be-digi-bwi.vercel.app/dokumen/${Id}`)
         alert("Dokumen Berhasil Dihapus")
         location.reload()
       } catch (error) {

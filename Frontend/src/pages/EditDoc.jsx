@@ -15,7 +15,7 @@ export const EditDoc = () => {
 
   useEffect(() => {
     const getDokumenById = async () => {
-      const response = await axios.get(`http://localhost:5000/dokumen/${id}`);
+      const response = await axios.get(`https://be-digi-bwi.vercel.app/dokumen/${id}`);
       setNama(response.data.nama);
       setKeterangan(response.keterangan)
       setTipe(response.data.tipe);
@@ -32,7 +32,7 @@ export const EditDoc = () => {
     formData.append("tipe", tipe);
     formData.append("berkas", berkas);
     try {
-      await axios.patch(`http://localhost:5000/dokumen/${id}`, formData, {
+      await axios.patch(`https://be-digi-bwi.vercel.app/dokumen/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

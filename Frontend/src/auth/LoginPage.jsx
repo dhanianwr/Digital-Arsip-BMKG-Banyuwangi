@@ -13,7 +13,7 @@ export const LoginPage = () => {
     const Auth = async(e) => {
       e.preventDefault();
       try {
-          await axios.post('http://localhost:5000/login', {
+          await axios.post('https://be-digi-bwi.vercel.app/login', {
               nip: nip,
               password: password,
           });
