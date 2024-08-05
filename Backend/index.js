@@ -20,7 +20,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(cors({ credentials: true, origin: "https://arsip-bmkgbwi.vercel.app" }));
 
 app.use(cookieParser())
 
